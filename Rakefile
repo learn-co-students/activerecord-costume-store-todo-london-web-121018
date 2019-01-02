@@ -19,3 +19,13 @@ load 'active_record/railties/databases.rake'
 task :console => :environment do
   Pry.start
 end
+
+Rake::Task["db:drop"].clear
+
+namespace :db do
+  task :drop => :environment do
+    puts "Dropping tables"
+    File.delete('db/schema.rb')
+    drop_db
+  end
+end
